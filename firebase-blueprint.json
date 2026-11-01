@@ -1,0 +1,161 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile, configuration, and preferences",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user unique ID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Optional profile photo URL"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "description": "Flag indicating if user has admin privileges"
+        },
+        "themeMode": {
+          "type": "string",
+          "description": "App theme mode preference (system, dark, light)"
+        },
+        "preferredVoice": {
+          "type": "string",
+          "description": "Preferred voice type for voice assistant"
+        },
+        "modelPreference": {
+          "type": "string",
+          "description": "Preferred Gemini model"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile last update timestamp"
+        }
+      },
+      "required": ["userId", "email", "displayName", "isAdmin"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "A chat or feature thread initiated by user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique conversation ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "ID of the user who owns this conversation"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of conversation"
+        },
+        "mode": {
+          "type": "string",
+          "description": "Feature mode: chat, voice, vision, writing, study, search"
+        },
+        "lastMessage": {
+          "type": "string",
+          "description": "Snippet of last message"
+        },
+        "messageCount": {
+          "type": "integer",
+          "description": "Total messages in conversation"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Conversation created timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Conversation updated timestamp"
+        }
+      },
+      "required": ["id", "userId", "title", "mode", "messageCount"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Individual message in a conversation",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique message ID"
+        },
+        "conversationId": {
+          "type": "string",
+          "description": "Parent conversation ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "ID of message owner"
+        },
+        "role": {
+          "type": "string",
+          "description": "Sender role: user, model, system"
+        },
+        "content": {
+          "type": "string",
+          "description": "Text message content"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Optional image URL or local storage URI"
+        },
+        "hasImage": {
+          "type": "boolean",
+          "description": "Whether an image is attached"
+        },
+        "toolUsed": {
+          "type": "string",
+          "description": "AI tool used for generation if applicable"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Message creation timestamp"
+        }
+      },
+      "required": ["id", "conversationId", "userId", "role", "content", "hasImage"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "User profile and settings"
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": {
+        "$ref": "#/entities/Conversation"
+      },
+      "description": "Conversations belonging to a user"
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+      "schema": {
+        "$ref": "#/entities/Message"
+      },
+      "description": "Messages inside a conversation"
+    }
+  }
+}

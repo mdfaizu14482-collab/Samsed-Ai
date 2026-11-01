@@ -1,0 +1,6 @@
+{
+  "name": "SAMSED AI",
+  "description": "Production-ready AI Assistant with chat, real-time voice, vision analysis, image generator, internet search, writing assistant, study help, and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
